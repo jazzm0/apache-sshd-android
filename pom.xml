@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 
     <!--
@@ -78,7 +80,8 @@
 
     <scm>
         <connection>scm:svn:http://svn.apache.org/repos/asf/mina/sshd/tags/sshd-0.8.0</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/mina/sshd/tags/sshd-0.8.0</developerConnection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/mina/sshd/tags/sshd-0.8.0
+        </developerConnection>
         <url>http://svn.apache.org/repos/asf/mina/sshd/tags/sshd-0.8.0</url>
     </scm>
 
@@ -198,10 +201,12 @@
                         </goals>
                         <configuration>
                             <resourceBundles>
-                                <resourceBundle>org.apache:apache-jar-resource-bundle:1.4</resourceBundle>
+                                <resourceBundle>org.apache:apache-jar-resource-bundle:1.4
+                                </resourceBundle>
                             </resourceBundles>
                             <supplementalModels>
-                                <supplementalModel>${projectRoot}/src/legal/notices.xml</supplementalModel>
+                                <supplementalModel>${projectRoot}/src/legal/notices.xml
+                                </supplementalModel>
                             </supplementalModels>
                             <properties>
                                 <projectName>Apache MINA SSHD</projectName>

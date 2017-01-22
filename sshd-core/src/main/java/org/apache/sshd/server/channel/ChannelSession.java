@@ -133,7 +133,8 @@ public class ChannelSession extends AbstractServerChannel {
         /**
          * adds a variable to the environment. This method is called <code>set</code>
          * according to the name of the appropriate posix command <code>set</code>
-         * @param key environment variable name
+         *
+         * @param key   environment variable name
          * @param value environment variable value
          */
         public void set(String key, String value) {
@@ -266,7 +267,7 @@ public class ChannelSession extends AbstractServerChannel {
         String name = buffer.getString();
         String value = buffer.getString();
         addEnvVariable(name, value);
-        log.debug("env for channel {}: {} = {}", new Object[] { id, name, value });
+        log.debug("env for channel {}: {} = {}", new Object[]{id, name, value});
         if (wantReply) {
             buffer = session.createBuffer(SshConstants.Message.SSH_MSG_CHANNEL_SUCCESS, 0);
             buffer.putInt(recipient);
@@ -283,16 +284,17 @@ public class ChannelSession extends AbstractServerChannel {
         int tWidth = buffer.getInt();
         int tHeight = buffer.getInt();
         byte[] modes = buffer.getBytes();
-        for (int i = 0; i < modes.length && modes[i] != 0;) {
+        for (int i = 0; i < modes.length && modes[i] != 0; ) {
             PtyMode mode = PtyMode.fromInt(modes[i++]);
-            int val  = ((modes[i++] << 24) & 0xff000000) |
-                       ((modes[i++] << 16) & 0x00ff0000) |
-                       ((modes[i++] <<  8) & 0x0000ff00) |
-                       ((modes[i++]      ) & 0x000000ff);
-            getEnvironment().getPtyModes().put(mode, val);
+            int val = ((modes[i++] << 24) & 0xff000000) |
+                    ((modes[i++] << 16) & 0x00ff0000) |
+                    ((modes[i++] << 8) & 0x0000ff00) |
+                    ((modes[i++]) & 0x000000ff);
+            if (mode != null)
+                getEnvironment().getPtyModes().put(mode, val);
         }
         if (log.isDebugEnabled()) {
-            log.debug("pty for channel {}: term={}, size=({} - {}), pixels=({}, {}), modes=[{}]", new Object[] { id, term, tColumns, tRows, tWidth, tHeight, getEnvironment().getPtyModes() });
+            log.debug("pty for channel {}: term={}, size=({} - {}), pixels=({}, {}), modes=[{}]", new Object[]{id, term, tColumns, tRows, tWidth, tHeight, getEnvironment().getPtyModes()});
         }
         addEnvVariable(Environment.ENV_TERM, term);
         addEnvVariable(Environment.ENV_COLUMNS, Integer.toString(tColumns));
@@ -311,7 +313,7 @@ public class ChannelSession extends AbstractServerChannel {
         int tRows = buffer.getInt();
         int tWidth = buffer.getInt();
         int tHeight = buffer.getInt();
-        log.debug("window-change for channel {}: ({} - {}), ({}, {})", new Object[] { id, tColumns, tRows, tWidth, tHeight });
+        log.debug("window-change for channel {}: ({} - {}), ({}, {})", new Object[]{id, tColumns, tRows, tWidth, tHeight});
 
         final StandardEnvironment e = getEnvironment();
         e.set(Environment.ENV_COLUMNS, Integer.toString(tColumns));
@@ -444,6 +446,7 @@ public class ChannelSession extends AbstractServerChannel {
                     log.info("Error closing shell", e);
                 }
             }
+
             public void onExit(int exitValue, String exitMessage) {
                 onExit(exitValue);
             }
@@ -496,7 +499,7 @@ public class ChannelSession extends AbstractServerChannel {
         }
 
         String display = ((ServerSession) session).createX11Display(buffer.getBoolean(), buffer.getString(),
-                                                                    buffer.getString(), buffer.getInt());
+                buffer.getString(), buffer.getInt());
         if (display == null) {
             if (wantReply) {
                 buffer = session.createBuffer(SshConstants.Message.SSH_MSG_CHANNEL_FAILURE, 0);
